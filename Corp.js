@@ -16,7 +16,7 @@ export async function main(ns) {
 
     // Hantera varje division
     for (const division of corporation.divisions) {
-      await manageCities(ns, division);
+      await manageWarehouse(ns, division);
       await manageEmployees(ns, division);
       await manageProducts(ns, division);
       await manageResearch(ns, division);
@@ -50,7 +50,7 @@ async function manageDivisions(ns) {
   // Fortsätt med ytterligare logik efter behov
 }
 
-async function manageCities(ns, division) {
+async function manageWarehouse(ns, division) {
   // Lägg till logik för att hantera städer inom varje division här
 }
 

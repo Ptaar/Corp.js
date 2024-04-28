@@ -1,6 +1,7 @@
 /** @param {NS} ns **/
 export async function main(ns) {
   const corpName = "MyCorp";
+  const allCities = ["Sector-12", "Aevum", "Chongqing", "New Tokyo", "Ishima", "Volhaven"]; // Lista städer där divisionen ska finnas
   // Initialisera företaget om det inte redan finns
   if (!ns.corporation.hasCorporation()) {
     ns.corporation.createCorporation(corpName, false);
@@ -11,7 +12,7 @@ export async function main(ns) {
     const corporation = ns.corporation.getCorporation();
 
     // Skapa divisioner om nödvändigt
-    await manageDivisions(ns);
+    await manageDivisions(ns, allCities);
     await initialCorpUpgrade(ns);
 
     // Hantera varje division
@@ -28,10 +29,9 @@ export async function main(ns) {
   }
 }
 
-async function manageDivisions(ns) {
+async function manageDivisions(ns, allCities) {
   const divisionName = "Agriculture";
   const divisionType = "Agriculture";
-  const allCities = ["Sector-12", "Aevum", "Chongqing", "New Tokyo", "Ishima", "Volhaven"]; // Lista städer där divisionen ska finnas
   // Kontrollera om divisionen redan finns
   const corporation = ns.corporation.getCorporation();
   const existingDivisions = corporation.divisions;
@@ -50,8 +50,13 @@ async function manageDivisions(ns) {
   // Fortsätt med ytterligare logik efter behov
 }
 
-async function manageWarehouse(ns, division) {
-  // Lägg till logik för att hantera städer inom varje division här
+async function manageWarehouse(ns, division, allCities) {
+        for (const city of allCities) {
+        if (!ns.corporation.hasWarehouse(division, city)) {
+            ns.corporation.purchaseWarehouse(division, city);
+            ns.print(`Purchased warehouse in ${city} for division ${division}.`);
+        }
+    }
 }
 
 async function manageEmployees(ns, division) {

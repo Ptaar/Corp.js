@@ -33,7 +33,7 @@ async function manageDivisions(ns) {
     const divisionCities = ["Sector-12", "Aevum", "Chongqing", "New Tokyo", "Ishima,", "Volhaven"]; // Lista städer där divisionen ska finnas
     // Kontrollera om divisionen redan finns
     const corporation = ns.corporation.getCorporation();
-    const existingDivisions = corporation.divisions.map(div => div.name);
+    const existingDivisions = corporation.divisions;
     if (!existingDivisions.includes(divisionName)) {
         // Skapa divisionen om den inte finns
         ns.corporation.expandIndustry(divisionName, divisionType);
@@ -41,8 +41,12 @@ async function manageDivisions(ns) {
         for (const city of divisionCities) {
             ns.corporation.expandCity(divisionName, city);
         }
-        ns.print("Agriculture division created and expanded to cities.");
+        ns.print("Agriculture division created");
     }
+    for (const city of divisionCities) {
+            ns.corporation.expandCity(divisionName, city);
+        }
+        ns.print("Expanded to new city");
     // Här kan du lägga till mer kod för att hantera andra divisioner eller ytterligare logik för Agriculture divisionen
 }
 

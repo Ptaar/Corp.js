@@ -17,7 +17,7 @@ export async function main(ns) {
 
     // Hantera varje division
     for (const division of corporation.divisions) {
-      await manageWarehouse(ns, division);
+      await manageWarehouse(ns, division, allCities);
       await manageEmployees(ns, division);
       await manageProducts(ns, division);
       await manageResearch(ns, division);

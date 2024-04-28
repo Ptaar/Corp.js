@@ -51,11 +51,18 @@ async function manageDivisions(ns, allCities) {
 }
 
 async function manageWarehouse(ns, division, allCities) {
+  
         for (const city of allCities) {
+
+          if (ns.corporation.getWarehouse(division, city).size < 300) {
+            ns.corporation.upgradeWarehouse(division, city)
+          }
+
         if (!ns.corporation.hasWarehouse(division, city)) {
             ns.corporation.purchaseWarehouse(division, city);
             ns.print(`Purchased warehouse in ${city} for division ${division}.`);
         }
+        ns.corporation.setSmartSupply(division, city, true);
     }
 }
 
@@ -74,6 +81,8 @@ async function manageResearch(ns, division) {
 async function manageAdvertising(ns, division) {
   // Lägg till logik för reklam och marknadsföring här
 }
+
+
 
 async function initialCorpUpgrade(ns) {
 
@@ -103,6 +112,10 @@ async function initialCorpUpgrade(ns) {
   
   if (ns.corporation.getUpgradeLevel("FocusWires") < 2) {
    ns.corporation.levelUpgrade("FocusWires");
+  }
+
+  if (ns.corporation.getUpgradeLevel("Smart Factories") < 2) {
+   ns.corporation.levelUpgrade("Smart Factories");
   }
   
 }

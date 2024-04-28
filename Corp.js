@@ -36,7 +36,7 @@ async function manageDivisions(ns) {
     const existingDivisions = corporation.divisions.map(div => div.name);
     if (!existingDivisions.includes(divisionName)) {
         // Skapa divisionen om den inte finns
-        ns.corporation.createDivision(divisionName, divisionType);
+        ns.corporation.expandIndustry(divisionName, divisionType);
         // Lägg till städer till den nya divisionen
         for (const city of divisionCities) {
             ns.corporation.expandCity(divisionName, city);
@@ -65,4 +65,3 @@ async function manageResearch(ns, division) {
 async function manageAdvertising(ns, division) {
     // Lägg till logik för reklam och marknadsföring här
 }
-
